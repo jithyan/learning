@@ -1,7 +1,7 @@
 // forEach
 const numbers = [1, 2, 3, 4, 5];
 
-var sum = 0;
+let sum = 0;
 numbers.forEach(function(number) {
   sum += number;
 });
@@ -55,11 +55,11 @@ const computers = [
 
 // Yes or No - do I have any computers that can run a program that requires 16GB?
 
-var allComputersCanRunProgram = true;
-var onlySomeProgramsCanRunProgram = false;
+let allComputersCanRunProgram = true;
+let onlySomeProgramsCanRunProgram = false;
 
 // Old way of doing this
-for (var i = 0; i < computers.length; i++) {
+for (let i = 0; i < computers.length; i++) {
   const computer = computers[i];
 
   if (computer.ram < 16) {
@@ -77,3 +77,51 @@ const canAllComputersRunProgram = computers.every(function(computer) {
 const canAtLeastOneComputerRunProgram = computers.some(function(computer) {
   return computer.ram > 16;
 });
+
+// Reduce
+const nums = [10, 20, 30];
+
+//old way
+let sum = 0;
+for (let i = 0; i < numbers.length; i++) {
+  sum += numbers[i];
+}
+
+//new way
+numbers.reduce(function(sum, number) {
+  return sum + number;
+}, 0);
+
+// more reduce practice
+const primaryColors = [
+  { color: "red" },
+  { color: "yellow" },
+  { color: "blue" }
+];
+// we want an array like --> ["red", "yellow", "blue"]
+primaryColors.reduce(function(acc: string[], primaryColor) {
+  acc.push(primaryColor.color);
+  return acc;
+}, []);
+
+/**
+ * Using reduce to determine balance paranthesis:
+ *  ()()((())) --> true
+ *  )()( --> false
+ */
+
+function balancedParens(str: string) {
+  return !str.split("").reduce(function(acc, char) {
+    if (acc < 0) return acc; //handles the scenario where you have bad order
+
+    if (char === "(") {
+      return ++acc;
+    } else if (char === ")") {
+      return --acc;
+    } else {
+      return acc;
+    }
+  }, 0);
+}
+
+console.log(`balanced parens for ()()): ${balancedParens("()())")}`);
