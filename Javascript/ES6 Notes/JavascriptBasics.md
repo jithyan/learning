@@ -38,3 +38,9 @@ obj.newField = "hello";
 ```
 
 Keep in mind values of objects are copied by value.
+
+## Javascript's Asynchronous Nature
+
+Javascript unlike most languages is asynchronous. If at any point it has to wait, it will add whatever it has to wait for to an event queue and skip to the next line. Once it checks its event queue for any events that have completed, it will then execute the callback.
+
+An analogy is that of a call centre. You can call the centre and they will put you on hold until there's someone available. But another way of doing it is where the centre puts you in a queue and call you once they have someone available. Javascript is like the latter.
