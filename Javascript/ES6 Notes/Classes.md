@@ -75,3 +75,20 @@ React.createClass({
 ```
 
 ES6 has been the most widely and quicky embraced feature in the community.
+
+## Static methods
+
+Works the same way as in other languages. Works against the class instead of the object.
+
+```javascript
+class SuperHero {
+  constructor(name, power) {
+    this.name = name;
+    this.power = power;
+  }
+
+  static isGood() {
+    return true;
+  }
+}
+```
