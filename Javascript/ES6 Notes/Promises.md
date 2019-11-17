@@ -43,6 +43,8 @@ If you didn't call resolve or reject, the status of the promise would be **"pend
 
 It's up to us to decide when to resolve or reject a promise, which will change the state of the promise.
 
+**You can pass in any object to `resolve` and `reject` to share the result.**
+
 What happens when a promise is rejected?
 
 ![promise7](./img/promise7.PNG)
@@ -68,37 +70,35 @@ promise
 promise.catch(() => console.log("A fail"));
 ```
 
-## Fetch
-
-Example of using `fetch` to get JSON data:
+## all() and race()
 
 ```javascript
-const url = "https://jsonplaceholder.typicode.com/posts/";
+const promise1 = new Promise((resolve, reject) => {
+  resolve("Promise One has resolved");
+});
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => console.log(data));
+const promise2 = new Promise((resolve, reject) => {
+  resolve("Promise 2 has resolved");
+});
+
+const promiseArray = [promise1, promise2];
+
+Promise.all(promiseArray).then(data => {
+  console.log(data);
+});
 ```
 
-- Note that the response doesn't immediately return the parsed data - we need to do it as a result of the first callback.
-- Only in the second callback do we get the data after having called `json()`.
+The output will be:
 
-The reason is, when we make a successful call to fetch, we get the following response object:
+> ["Promise One has resolved", "Promise 2 has resolved"]
 
-![fetch1](./img/fetch1.PNG)
-
-### Gotcha with Fetch
+_`Promise.all([Promise...])` takes an iterable of promises and exectues **only when all** of them resolve._
 
 ```javascript
-const bad_url = "https://jsonplaceholder.typicode.com/DOES_NOT_EXIST/";
-
-fetch(url)
-  .then(response => console.log(response))
-  .catch(error => console.log("ERROR!"));
+Promise.race(promiseArray).then(data => {
+  console.log("One of the promises are done, I don't care which one!");
+  console.log(data);
+});
 ```
 
-- The above URL will return a 404. We expect the catch callback to be executed.
-- It _does not_ get executed. Instead, the `then` callback is executed.
-- This `catch` callback is only executed on **failed network requests** - i.e. no server response, like a bad domain name, no internet, etc.
-
-> In order to determine if the server threw an error, we need to check `response.status` in the `then` callback!
+**`race()` will execute once _one_ of the promises have resolved.**
