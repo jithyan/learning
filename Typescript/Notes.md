@@ -10,6 +10,17 @@
 ### Type Definitions
 
 - These are laid out in a file with extension: d.ts
+- To install type definition files for the NodeJS library, use `yarn add @types/node`. Note that if you fail to do so, if you use an import statement, Typescript will give an incorrect "module does not exist" error.
+
+![tyepdef](./typedef.PNG)
+
+The above shows how Typescript can interface with any Javascript library, provided a type definition file is provided.
+
+### Enums
+
+![enums](./enums.PNG)
+
+![jsenums](./jsenum.PNG)
 
 ## Other
 

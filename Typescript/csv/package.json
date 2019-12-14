@@ -5,6 +5,11 @@
   "author": "Jithya N",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently yarn:start:*"
+  },
   "dependencies": {
     "@types/node": "^12.12.17",
     "concurrently": "^5.0.1",
