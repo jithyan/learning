@@ -126,3 +126,24 @@ Typescript will know:
 
 - name is a string.
 - age will be a number.
+
+## Issues with Javascript Libraries
+
+![integrationissues](./img/integrationissues.png)
+
+- For various Javascript libraries, such as Express, which rely heavily on middleware that dynamically add or remove properties from objects, the supplied Typedefinition files tend to be either incomplete or incorrect.
+- For Express, you can use ts-express-decorators as an adapter to improve Typescript integration.
+
+### Enhancing an existing interface declaration
+
+In Express, the `cookie-session` package handles the addition of the `session` property to `Request` much better.
+It achieves it by the following declaration in its `index.ts`:
+
+![cookie-session](./img/cookie-session.png)
+
+Another way of enhancing existing interfaces:
+
+![expressrequestwithbody](./img/expressrequestwithbody.png)
+
+- The problem with **express**, is that the `Request` object will have a `body` field once you wire up the `body-parser` middleware. **Typescript will not be aware of this due to the way the library was written.**
+- A convenient solution to this is to do the above - extend `Request` to have a `body` field and use that definition instead.
