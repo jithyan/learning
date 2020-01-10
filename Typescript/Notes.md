@@ -140,3 +140,10 @@ In Express, the `cookie-session` package handles the addition of the `session` p
 It achieves it by the following declaration in its `index.ts`:
 
 ![cookie-session](./img/cookie-session.png)
+
+Another way of enhancing existing interfaces:
+
+![expressrequestwithbody](./img/expressrequestwithbody.png)
+
+- The problem with **express**, is that the `Request` object will have a `body` field once you wire up the `body-parser` middleware. **Typescript will not be aware of this due to the way the library was written.**
+- A convenient solution to this is to do the above - extend `Request` to have a `body` field and use that definition instead.
