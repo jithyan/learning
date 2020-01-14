@@ -92,3 +92,53 @@ class SuperHero {
   }
 }
 ```
+
+## Accessors
+
+You can use "getters" and "setters" to access object get and set methods like _properties_.
+
+Example of read only implementation:
+
+```javascript
+class A {
+  constructor(_data) {
+    this._data = _data;
+  }
+
+  get data() {
+    return this.data;
+  }
+}
+
+const a = new A("hello");
+console.log(a.data);
+// will not work - a.data = "bye"
+```
+
+Note in the example above, we have to use `_data` instead of `data` in the constructor, because without a **setter** you can't do any assignment.
+
+## Rule of Thumb for "this"
+
+> "this" will be equal to whatever is to the left of the function/property call.
+
+Example:
+
+```javascript
+const colors = {
+  color: 'red',
+  printColor(): {
+    console.log(this.color);
+  },
+};
+
+colors.printColor(); // this works
+
+const printColor = colors.printColor;
+printColor(); //WILL FAIL: this.color -> undefined.color
+```
+
+### Easiest solution
+
+- Use "Fat Arrow" functions (i.e. function expressions) only.
+- The performance impact is so minimal that it doesn't matter.
+- Alternatively you have to bind the function/property to the appropriate object.
