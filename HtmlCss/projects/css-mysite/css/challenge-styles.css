@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+}
+
+div {
+    border: solid;
+    border-width: thick;
+    width: 200px;
+    height: 200px;
+}
+
+.top-container {
+    background-color: #effffb;
+}
+.middle-container {
+    background-color: burlywood;
+    margin-left: 210px;
+}
+.bottom-container {
+    margin-left: 420px;
+    background-color: cadetblue;
+}
+
+h1 {
+    margin-top: 0;
+}

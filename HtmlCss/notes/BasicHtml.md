@@ -1,4 +1,4 @@
-# Notes
+# Basic Html
 
 ## Boilerplate
 
@@ -75,8 +75,8 @@ There are many attributes associated with table related elements, which must not
   </thead>
   <tbody>
     <tr>
-      <td>Jita</td>
-      <td>Nan</td>
+      <td>Saddam</td>
+      <td>Hussein</td>
     </tr>
     <tr>
       <td>Josef</td>
