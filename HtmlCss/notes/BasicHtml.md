@@ -1,4 +1,4 @@
-# Notes
+# Basic Html
 
 ## Boilerplate
 
@@ -75,8 +75,8 @@ There are many attributes associated with table related elements, which must not
   </thead>
   <tbody>
     <tr>
-      <td>Jita</td>
-      <td>Nan</td>
+      <td>Saddam</td>
+      <td>Hussein</td>
     </tr>
     <tr>
       <td>Josef</td>
@@ -127,10 +127,3 @@ The main attributes are:
 - `name` - Identify the input control.
 - `value` - the value of the control. By population this, you're setting a default.
 - `type` - these are very diverse. From range controls, to date and color pickers.
-
-## Advanced
-
-### divs
-
-- They allow you to divide and structure your content. 
-- They're useless without CSS.
