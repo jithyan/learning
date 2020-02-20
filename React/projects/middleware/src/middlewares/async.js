@@ -20,4 +20,9 @@ export default ({ dispatch }) => next => action => {
   if (!action.payload || !action.payload.then) {
     return next(action); //We're not returning anything - it's to ensure the function terminates!
   }
+
+  action.payload.then(function(response) {
+    const newAction = { ...action };
+    dispatch(newAction); //By dispatching it, we start the cycle again
+  });
 };
