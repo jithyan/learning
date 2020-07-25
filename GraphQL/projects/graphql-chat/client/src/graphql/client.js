@@ -1,0 +1,54 @@
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  InMemoryCache,
+  split,
+} from "apollo-boost";
+import { getMainDefinition } from "apollo-utilities";
+import { getAccessToken } from "../auth";
+import { WebSocketLink } from "apollo-link-ws";
+
+const httpUrl = "http://localhost:9000/graphql";
+const wsUrl = "ws://localhost:9000/graphql";
+
+const httpLink = ApolloLink.from([
+  new ApolloLink((operation, forward) => {
+    const token = getAccessToken();
+    if (token) {
+      operation.setContext({ headers: { authorization: `Bearer ${token}` } });
+    }
+    return forward(operation);
+  }),
+  new HttpLink({ uri: httpUrl }),
+]);
+
+// The lazy option is by default set to false
+// If you make it true, it only makes a websocket connection when needed
+const wsLink = new WebSocketLink({
+  uri: wsUrl,
+  options: {
+    lazy: true,
+    reconnect: true,
+    connectionParams: () => ({
+      accessToken: getAccessToken(),
+    }),
+  },
+});
+
+function isSubscription(operation) {
+  const definition = getMainDefinition(operation.query);
+  return (
+    definition.kind === "OperationDefinition" &&
+    definition.operation === "subscription"
+  );
+}
+
+// link takes a function that returns the 2nd arg if true, else the 3rd arg
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: split(isSubscription, wsLink, httpLink),
+  defaultOptions: { query: { fetchPolicy: "no-cache" } },
+});
+
+export default client;

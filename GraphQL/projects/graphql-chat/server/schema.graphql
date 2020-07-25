@@ -1,0 +1,34 @@
+type Query {
+  messages: [Message]
+}
+
+type Mutation {
+  addMessage(input: MessageInput!): Message
+}
+
+# A `Subscription` is another root GraphQL type.
+# https://www.apollographql.com/docs/apollo-server/data/subscriptions/
+# https://graphql.org/blog/subscriptions-in-graphql-and-relay/
+
+# NOTE: We need to install the `graphql-subscriptions` package
+
+# Subscriptions utilze a different protocol called Web Sockets.
+# Unless you've enabled this websocket endpoint, the user will get a
+# "Could not connect to websocket endpoint" error message.
+
+# The WebSocket API is an advanced technology that makes it possible to open a two-way interactive communication session between the user's browser and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply.
+# https://blog.teamtreehouse.com/an-introduction-to-websockets
+# WebSockets provide a persistent connection between a client and server that both parties can use to start sending data at any time. With WebSockets you can transfer as much data as you like without incurring the overhead associated with traditional HTTP requests. Data is transferred through a WebSocket as messages, each of which consists of one or more frames containing the data you are sending (the payload). In order to ensure the message can be properly reconstructed when it reaches the client each frame is prefixed with 4-12 bytes of data about the payload. Using this frame-based messaging system helps to reduce the amount of non-payload data that is transferred, leading to significant reductions in latency.
+type Subscription {
+  messageAdded: Message
+}
+
+type Message {
+  id: ID!
+  from: String
+  text: String
+}
+
+input MessageInput {
+  text: String
+}
