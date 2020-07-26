@@ -1,0 +1,12 @@
+{
+  "name": "tindog",
+  "version": "1.0.0",
+  "description": "TinDog Starting Files",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
