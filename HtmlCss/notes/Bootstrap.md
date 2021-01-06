@@ -1,5 +1,7 @@
 # Bootstrap
 
+> See bootsnip.com for useful Bootstrap snippets.
+
 It's a HTML, CSS and JS library for conveniently building pretty, responsive websites.
 It makes the following easy:
 
@@ -72,3 +74,45 @@ If you want, you can add a "fixed-top" class to make sure it stays on the top wh
   </div>
 </nav>
 ```
+
+## Grid Layout
+
+- The Bootstrap Grid is divided into `row` and `col` classes.
+- A `col` class must be inside a row.
+- A grid consists of 12 columns - you specify how many columns should be taken.
+- Below is an example of a _fixed_ column specification - take up 50% of screen, by taking up 6 columns.
+
+```html
+<div class="row">
+  <div class="col-6">Column takes 50% of screen</div>
+</div>
+```
+
+> When no number is specified, all the columns will take up an equal width.
+
+### Responsive Grid
+
+- In order to set different column sizes for different screen sizes, you need to specify the device size with the `col-` class.
+- If you only set one device size, it means that column size will apply for all devices starting from the specified device size (e.g. if you only specified `md`, smaller screens take up full column width, larger devices will also use the `md` size).
+
+![grid1](./images/bootstrap_grid_1.png)
+
+```html
+<div class="row">
+  <div class="col-md-6">
+    Column takes 50% of screen on medium devices upwards
+  </div>
+  <div class="col-md-6">
+    Column takes 50% of screen on medium devices upwardsn
+  </div>
+</div>
+```
+
+## Bootstrap Containers
+
+- Containers allow you to center or pad out your container.
+- Fluid containers always take up a 100% of the width regardless of how you change the screen size. Regular containers have a `max-width` which dynamically changes based on on screen size.
+
+## Examples
+
+The TinDog example project has sample implementations of the Bootstrap Carousel and Card Deck
