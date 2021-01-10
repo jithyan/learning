@@ -29,7 +29,7 @@ p {
 }
 
 .container-fluid {
-  padding: 3% 15%;
+  padding: 3% 15% 10%;
 }
 
 /** Navigation Bar */
@@ -63,12 +63,15 @@ p {
 .title-img {
   width: 60%;
   transform: rotate(15deg);
+  position: absolute; /* Takes the image out of the HTML flow*/
 }
 
 /* Features */
 
 #features {
   padding: 7% 15%;
+  background-color: #fff;
+  position: relative; /* By making it a positioned element, it will stack on top */
 }
 
 .feature-box {
@@ -122,4 +125,15 @@ p {
 
 .pricing-col {
   padding: 3% 2%;
+}
+
+@media (max-width: 1028px) {
+  .title-img {
+    position: static;
+    transform: rotate(0);
+  }
+
+  #title {
+    text-align: center;
+  }
 }
