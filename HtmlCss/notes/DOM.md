@@ -117,3 +117,26 @@ a.getAttribute("href");
 // "www.google.com"
 a.setAttribute("href", "bing");
 ```
+
+### addEventListener
+
+- Every element can be given an event listener.
+- The callback function's `this` will be the DOM element that executed it.
+- The signature is `addEventListener(eventName, (event: Event) => void)`
+- The event names can be found here: https://developer.mozilla.org/en-US/docs/Web/Events
+- The Event object reference can be found here: https://developer.mozilla.org/en-US/docs/Web/API/Event
+
+```javascript
+const buttonElement = document.getElementById("btn");
+
+buttonElement.addEventListener("click", function (event) {
+  alert("Element clicked through function!");
+  console.log(this);
+
+  // "this" will be the button element - so you can call the DOM API methods on it, such as `innerHTML`
+});
+
+document.addEventListener("keydown", function (event) {
+  console.log(event.key); // If you press "w" will print "w"
+});
+```
