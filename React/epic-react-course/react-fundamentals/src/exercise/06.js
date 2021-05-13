@@ -18,11 +18,18 @@ function UsernameForm({onSubmitUsername}) {
 
   // 🐨 make sure to associate the label to the input.
   // to do so, set the value of 'htmlFor' prop of the label to the id of input
+  const ref = React.useRef()
   return (
-    <form>
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        //onSubmitUsername(e.target.usernameInput.value)
+        onSubmitUsername(ref.current.value)
+      }}
+    >
       <div>
-        <label>Username:</label>
-        <input type="text" />
+        <label htmlFor="usernameInput">Username:</label>
+        <input ref={ref} id="usernameInput" name="usernameInput" type="text" />
       </div>
       <button type="submit">Submit</button>
     </form>
