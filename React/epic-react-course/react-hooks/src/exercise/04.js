@@ -3,9 +3,26 @@
 
 import * as React from 'react'
 
+function useSyncLocalStorage(key, defaultVal = '') {
+  const [state, setState] = React.useState(
+    () => JSON.parse(window.localStorage.getItem(key)) ?? defaultVal,
+  )
+
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(state))
+  }, [state])
+
+  return [state, setState]
+}
+
 function Board() {
   // 🐨 squares is the state for this component. Add useState for squares
-  const squares = Array(9).fill(null)
+  const [squares, setSquares] = useSyncLocalStorage(
+    'squares',
+    Array(9).fill(null),
+  )
+
+  console.table(squares)
 
   // 🐨 We'll need the following bits of derived state:
   // - nextValue ('X' or 'O')
@@ -17,58 +34,71 @@ function Board() {
   // This is the function your square click handler will call. `square` should
   // be an index. So if they click the center square, this will be `4`.
   function selectSquare(square) {
-    // 🐨 first, if there's already winner or there's already a value at the
-    // given square index (like someone clicked a square that's already been
-    // clicked), then return early so we don't make any state changes
-    //
-    // 🦉 It's typically a bad idea to mutate or directly change state in React.
-    // Doing so can lead to subtle bugs that can easily slip into production.
-    //
-    // 🐨 make a copy of the squares array
-    // 💰 `[...squares]` will do it!)
-    //
-    // 🐨 set the value of the square that was selected
-    // 💰 `squaresCopy[square] = nextValue`
-    //
-    // 🐨 set the squares to your copy
+    if (!Boolean(squares[square]) && !Boolean(calculateWinner(squares))) {
+      setSquares(prev => {
+        const nextSquares = [...prev]
+        nextSquares[square] = calculateNextValue(squares)
+        return nextSquares
+      })
+    }
   }
 
   function restart() {
-    // 🐨 reset the squares
-    // 💰 `Array(9).fill(null)` will do it!
-  }
-
-  function renderSquare(i) {
-    return (
-      <button className="square" onClick={() => selectSquare(i)}>
-        {squares[i]}
-      </button>
-    )
+    setSquares(Array(9).fill(null))
   }
 
   return (
     <div>
       {/* 🐨 put the status in the div below */}
-      <div className="status">STATUS</div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
+      <div className="status">
+        {calculateStatus(
+          calculateWinner(squares),
+          squares,
+          calculateNextValue(squares),
+        )}
       </div>
       <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
+        {[0, 1, 2].map(pos => (
+          <Square
+            key={`${pos}-${squares[pos]}`}
+            pos={pos}
+            selectSquare={selectSquare}
+            value={squares[pos]}
+          />
+        ))}
       </div>
       <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
+        {[3, 4, 5].map(pos => (
+          <Square
+            key={`${pos}-${squares[pos]}`}
+            pos={pos}
+            selectSquare={selectSquare}
+            value={squares[pos]}
+          />
+        ))}
+      </div>
+      <div className="board-row">
+        {[6, 7, 8].map(pos => (
+          <Square
+            key={`${pos}-${squares[pos]}`}
+            pos={pos}
+            selectSquare={selectSquare}
+            value={squares[pos]}
+          />
+        ))}
       </div>
       <button className="restart" onClick={restart}>
         restart
       </button>
     </div>
+  )
+}
+
+function Square({selectSquare, pos, value}) {
+  return (
+    <button className="square" onClick={() => selectSquare(pos)}>
+      {value}
+    </button>
   )
 }
 
@@ -82,7 +112,6 @@ function Game() {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
   return winner
     ? `Winner: ${winner}`
@@ -91,12 +120,10 @@ function calculateStatus(winner, squares, nextValue) {
     : `Next player: ${nextValue}`
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateNextValue(squares) {
   return squares.filter(Boolean).length % 2 === 0 ? 'X' : 'O'
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
