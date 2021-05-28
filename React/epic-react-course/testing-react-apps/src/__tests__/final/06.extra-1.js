@@ -19,15 +19,16 @@ test('displays the users current location', async () => {
 
   let setReturnValue
   function useMockCurrentPosition() {
-    const state = React.useState([])
-    setReturnValue = state[1]
-    return state[0]
+    const [pos, setPos] = React.useState([])
+    setReturnValue = setPos
+    return pos
   }
   useCurrentPosition.mockImplementation(useMockCurrentPosition)
 
   render(<Location />)
   expect(screen.getByLabelText(/loading/i)).toBeInTheDocument()
 
+  // A React state update must be wrapped in act, to flush all side effects
   act(() => {
     setReturnValue([fakePosition])
   })
