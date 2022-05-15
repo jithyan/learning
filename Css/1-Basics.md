@@ -1,4 +1,4 @@
-# Notes
+# Basics
 
 ## Box Sizing
 

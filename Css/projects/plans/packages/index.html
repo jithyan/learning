@@ -14,6 +14,8 @@
   </head>
 
   <body>
+    <div class="background"></div>
+
     <header class="main-header">
       <div>
         <a href="../index.html" class="main-header__brand"> uHost </a>
@@ -32,10 +34,12 @@
         </ul>
       </nav>
     </header>
+
     <main class="main">
       <section class="package__section plus_package">
         <a class="package__link plus" href="#">
           <h1>Our PLUS package</h1>
+          <h2 class="package__badge">RECOMMENDED</h2>
           <h2>The most popular choice of our customers.</h2>
           <p>
             Benefit from increased storage and faster support to ensure that
@@ -43,13 +47,14 @@
           </p>
         </a>
       </section>
-      <section class="package__section free_package">
+      <section class="package__section free_package" id="free">
         <a class="package__link" href="#">
           <h1>Our FREE package</h1>
           <h2>An extremely solid start into our hosting world.</h2>
           <p>Get started immediately at zero cost!</p>
         </a>
       </section>
+      <div class="clearfix"></div>
       <section class="package__section premium_package">
         <a class="package__link" href="#">
           <h1>Our PREMIUM package</h1>
@@ -63,6 +68,7 @@
         </a>
       </section>
     </main>
+
     <footer class="main-footer">
       <nav>
         <ul class="main-footer__links">
