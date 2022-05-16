@@ -12,5 +12,12 @@
 - This is where you use the `<img>` tag to add images to the document (not the `background-image` CSS property)..
 - By default, the height and width of the image will override the dimensions of the containing element.
 - You can override the default behavior by targeting the image and setting its dimensions, If you set a value such as `100%`, so that the image scales up to the full size of the containing element, the element needs to be an `inline-block`.
-- Image tags have less flexibility for styling. Use `background-image` if you want more options.
+- Image tags have less flexibility for styling, however they are better for a11y. Use `background-image` if you want more options, but its best reserved for actual backgrounds.
 - The downside of using `background-image` is that the image itself is not an HTML element that is part of the document flow.
+
+## The Filter Property
+
+- Allows you to change the look of an element.
+- Examples include: opacity, grayscale, blur, contrast, etc.
+- To see the complete list of options, visit the MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/filter
+- Note that IE does not support this.
